@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: shopping-cart
-        image: gcr.io/<PROJECT_ID>/shopping-cart:latest
+        image: gcr.io/eighth-codex-439113-s2/shopping-cart:latest
         ports:
         - containerPort: 80

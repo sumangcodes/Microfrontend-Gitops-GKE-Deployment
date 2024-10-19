@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: container-app
-        image: gcr.io/<PROJECT_ID>/container-app:latest
+        image: gcr.io/eighth-codex-439113-s2/container-app:latest
         ports:
         - containerPort: 80

@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: product-catalog
-        image: gcr.io/<PROJECT_ID>/product-catalog:latest
+        image: gcr.io/eighth-codex-439113-s2/product-catalog:latest
         ports:
         - containerPort: 80
