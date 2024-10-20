@@ -19,3 +19,6 @@ spec:
         image: gcr.io/eighth-codex-439113-s2/product-catalog:latest
         ports:
         - containerPort: 80
+        env:
+          - name: PUBLIC_URL
+            value: /product-catalog  # Ensures the app knows it runs under this path
