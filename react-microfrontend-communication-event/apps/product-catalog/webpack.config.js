@@ -16,7 +16,7 @@ module.exports = {
   devServer: {
     static: path.join(__dirname, "dist"),
     allowedHosts: 'all',
-    port: process.env.PORT || 3000, // Allows dynamic port assignment
+    port: process.env.PORT || 8080, // Allows dynamic port assignment
     historyApiFallback: true, // Supports SPA routing
     open: true, // Automatically opens the browser on start
   },

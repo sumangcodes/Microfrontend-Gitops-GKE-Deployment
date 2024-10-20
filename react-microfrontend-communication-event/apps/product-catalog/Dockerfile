@@ -7,18 +7,20 @@ WORKDIR /app
 # Copy package.json and package-lock.json to the working directory
 COPY package.json package-lock.json ./
 
-# Install dependencies and Webpack CLI globally
-RUN npm install && npm install -g webpack webpack-cli
+# Install all dependencies including development dependencies
+RUN npm install
 
-# Verify installation of webpack and webpack-cli
-RUN echo "Installed Webpack version:" && webpack --version
-RUN echo "Installed Webpack CLI version:" && webpack-cli --version
+# Ensure Webpack and Webpack CLI are installed as dev dependencies
+RUN npm install -D webpack webpack-cli
 
 # Copy the rest of the application code to the working directory
 COPY . .
 
-# Expose port 8080
+# Expose the application port
 EXPOSE 8080
 
-# Start the development server
+# Use Webpack to build the app (adjust as needed for your config)
+RUN npm run build
+
+# Start the server using the build output (adjust based on your setup)
 CMD ["npm", "start"]
