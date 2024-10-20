@@ -10,6 +10,10 @@ COPY package.json package-lock.json ./
 # Install dependencies and Webpack CLI globally
 RUN npm install && npm install -g webpack webpack-cli
 
+# Verify installation of webpack and webpack-cli
+RUN echo "Installed Webpack version:" && webpack --version
+RUN echo "Installed Webpack CLI version:" && webpack-cli --version
+
 # Copy the rest of the application code to the working directory
 COPY . .
 
