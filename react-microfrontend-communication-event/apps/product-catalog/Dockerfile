@@ -8,7 +8,10 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm # Install Webpack CLI globally
+
+RUN npm install -g webpack webpack-cli
+
 
 # Copy the rest of the application code to the working directory
 COPY . .
