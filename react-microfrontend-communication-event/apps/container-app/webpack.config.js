@@ -49,8 +49,8 @@ module.exports = {
       name: "ContainerApp", // Unique name for the Container App microfrontend
       filename: "remoteEntry.js", // Federated entry point for remote module
       remotes: {
-        ProductCatalog: 'ProductCatalog@http://localhost:3000/remoteEntry.js', // Remote reference for Product Catalog
-        ShoppingCart: 'ShoppingCart@http://localhost:3002/remoteEntry.js', // Remote reference for Shopping Cart
+        ProductCatalog: 'ProductCatalog@http://product-catalog.mfend.com/remoteEntry.js', // Remote reference for Product Catalog
+        ShoppingCart: 'ShoppingCart@http://shopping-cart.mfend.com/remoteEntry.js', // Remote reference for Shopping Cart
       },
       shared: {
         react: { singleton: true, eager: true, requiredVersion: false },
