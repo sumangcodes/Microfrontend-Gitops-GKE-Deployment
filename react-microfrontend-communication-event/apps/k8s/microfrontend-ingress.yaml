@@ -2,35 +2,28 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: microfrontend-ingress
-  namespace: argocd  # Ensure the namespace matches the services
+  namespace: argocd  # Ensure it matches the services
   annotations:
-    kubernetes.io/ingress.class: "gce"  # Use GCE ingress controller (if on GKE)
+    kubernetes.io/ingress.class: "gce"  # Use GCE ingress controller if on GKE
 spec:
   rules:
-    - host: product-catalog.mfend.com
-      http:
+    - http:
         paths:
-          - path: /
+          - path: /product-catalog
             pathType: Prefix
             backend:
               service:
                 name: product-catalog
                 port:
                   number: 80
-    - host: shopping-cart.mfend.com
-      http:
-        paths:
-          - path: /
+          - path: /shopping-cart
             pathType: Prefix
             backend:
               service:
                 name: shopping-cart
                 port:
                   number: 80
-    - host: container-app.mfend.com
-      http:
-        paths:
-          - path: /
+          - path: /container-app
             pathType: Prefix
             backend:
               service:
