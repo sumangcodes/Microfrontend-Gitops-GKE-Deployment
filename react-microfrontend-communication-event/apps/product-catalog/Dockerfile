@@ -7,16 +7,13 @@ WORKDIR /app
 # Copy package.json and package-lock.json to the working directory
 COPY package.json package-lock.json ./
 
-# Install dependencies
-RUN npm # Install Webpack CLI globally
-
-RUN npm install -g webpack webpack-cli
-
+# Install dependencies and Webpack CLI globally
+RUN npm install && npm install -g webpack webpack-cli
 
 # Copy the rest of the application code to the working directory
 COPY . .
 
-# Expose port 3000
+# Expose port 8080
 EXPOSE 8080
 
 # Start the development server
