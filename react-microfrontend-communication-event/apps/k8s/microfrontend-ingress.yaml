@@ -2,9 +2,10 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: microfrontend-ingress
-  namespace: argocd  # Ensure it matches the services
+  namespace: argocd
   annotations:
-    kubernetes.io/ingress.class: "gce"  # Use GCE ingress controller if on GKE
+    kubernetes.io/ingress.class: "gce"
+    ingress.kubernetes.io/rewrite-target: "/"
 spec:
   rules:
     - http:
