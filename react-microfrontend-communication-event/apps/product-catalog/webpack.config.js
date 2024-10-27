@@ -8,26 +8,26 @@ const htmlPlugin = new HtmlWebPackPlugin({
 });
 
 module.exports = {
-  mode: 'production',
-  entry: './src/index.js',
+  mode: 'development',
+  entry: './src/index.js', // Ensure the correct entry point
   output: {
-    publicPath: '/product-catalog/',  // Ensures assets are loaded correctly
+    publicPath: 'auto', // Ensures correct loading even on different hosts
   },
   devServer: {
     static: path.join(__dirname, "dist"),
     allowedHosts: 'all',
-    port: process.env.PORT || 8080,
-    historyApiFallback: {
-      index: '/product-catalog/index.html', // Ensures correct fallback on refresh
-    },
-    open: true,
+    port: process.env.PORT || 3000, // Allows dynamic port assignment
+    historyApiFallback: true, // Supports SPA routing
+    open: true, // Automatically opens the browser on start
   },
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: { loader: "babel-loader" },
+        use: {
+          loader: "babel-loader",
+        },
       },
       {
         test: /\.css$/,
@@ -35,7 +35,7 @@ module.exports = {
       },
       {
         test: /\.(png|jpg|jpeg|gif|woff|woff2|eot|ttf|otf)$/,
-        type: 'asset/resource',
+        type: 'asset/resource', // Support for static assets
       },
       {
         test: /\.svg$/,
@@ -46,10 +46,10 @@ module.exports = {
   plugins: [
     htmlPlugin,
     new ModuleFederationPlugin({
-      name: "ProductCatalog",
-      filename: "remoteEntry.js",
+      name: "ProductCatalog", // Unique name for this microfrontend
+      filename: "remoteEntry.js", // Entry file exposed by Module Federation
       exposes: {
-        './ProductList': './src/ProductList',
+        './ProductList': './src/ProductList', // Correctly expose the ProductList component
       },
       shared: {
         react: { singleton: true, eager: true, requiredVersion: false },
@@ -58,6 +58,6 @@ module.exports = {
     }),
   ],
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx'], // Ensure React files are properly resolved
   },
 };

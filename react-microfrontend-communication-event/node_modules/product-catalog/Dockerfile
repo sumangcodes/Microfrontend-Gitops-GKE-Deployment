@@ -1,26 +1,23 @@
-# Use an official Node.js image as the base image
-FROM node:18.18.0-alpine
+# Use an official Node.js image as the base
+FROM node:18-alpine
 
-# Set the working directory in the container
+# Set the working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json to the working directory
-COPY package.json package-lock.json ./
+# Copy package.json and package-lock.json to install dependencies
+COPY package*.json ./
 
-# Install all dependencies including development dependencies
+# Install dependencies
 RUN npm install
 
-# Ensure Webpack and Webpack CLI are installed as dev dependencies
-RUN npm install -D webpack webpack-cli
-
-# Copy the rest of the application code to the working directory
+# Copy the rest of the application code
 COPY . .
 
-# Expose the application port
-EXPOSE 8080
-
-# Use Webpack to build the app (adjust as needed for your config)
+# Build the application for production
 RUN npm run build
 
-# Start the server using the build output (adjust based on your setup)
-CMD ["npm", "start"]
+# Expose the port the app runs on
+EXPOSE 3000
+
+# Command to run the app in production mode
+CMD ["npx", "serve", "dist", "-l", "3000"]
