@@ -82,6 +82,13 @@ Submit a pull request for review.
 License
 This project is licensed under the MIT License. See the LICENSE file for more information.
 
+importants commands : 
+Create key and cert 
+
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout sumanexample-in.key -out sumanexample-in.crt -subj "/CN=sumanexample.in" -addext "subjectAltName=DNS:sumanexample.in,DNS:*.sumanexample.in"
+
+
+
 Acknowledgments
 A special thanks to the teams behind Webpack Module Federation, GKE, and ArgoCD for providing tools that power modern microfrontend architecture and GitOps workflows.
 
