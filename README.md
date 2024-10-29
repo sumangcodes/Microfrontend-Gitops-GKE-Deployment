@@ -85,7 +85,8 @@ This project is licensed under the MIT License. See the LICENSE file for more in
 importants commands : 
 Create key and cert 
 
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout sumanexample-in.key -out sumanexample-in.crt -subj "/CN=sumanexample.in" -addext "subjectAltName=DNS:sumanexample.in,DNS:*.sumanexample.in"
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout sumangcodes-info.key -out sumangcodes-info.crt -subj "/CN=sumangcodes.info" -addext "subjectAltName=DNS:sumangcodes.info,DNS:*.sumangcodes.info"
+
 
 sample port forwarding commands : 
 kubectl port-forward pod/product-catalog-9cbcd86bc-xrgbv 8080:3000 -n sumanns                                                    
