@@ -92,6 +92,9 @@ kubectl port-forward pod/product-catalog-9cbcd86bc-xrgbv 8080:3000 -n sumanns
 
 creation of secret tls :-
 kubectl create secret tls sumanexample-in-cert --cert=sumanexample-in.crt --key=sumanexample-in.key -n sumanns
+C:\Users\ciphe\Projects\Microfrontend-Gitops-GKE-Deployment\react-microfrontend-communication-event\apps\k8s>kubectl get secrets -n sumanns
+NAME                   TYPE                DATA   AGE
+sumanexample-in-cert   kubernetes.io/tls   2      18s
 
 Acknowledgments
 A special thanks to the teams behind Webpack Module Federation, GKE, and ArgoCD for providing tools that power modern microfrontend architecture and GitOps workflows.
