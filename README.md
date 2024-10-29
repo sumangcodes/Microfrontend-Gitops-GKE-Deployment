@@ -87,6 +87,9 @@ Create key and cert
 
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout sumanexample-in.key -out sumanexample-in.crt -subj "/CN=sumanexample.in" -addext "subjectAltName=DNS:sumanexample.in,DNS:*.sumanexample.in"
 
+sample port forwarding commands : 
+kubectl port-forward pod/product-catalog-9cbcd86bc-xrgbv 8080:3000 -n sumanns                                                    
+
 
 
 Acknowledgments
