@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-catalog
+  namespace: sumanns
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: product-catalog
+  template:
+    metadata:
+      labels:
+        app: product-catalog
+    spec:
+      containers:
+        - name: product-catalog
+          image: gcr.io/eighth-codex-439113-s2/product-catalog:latest
+          ports:
+            - containerPort: 3000  # Same as the exposed port in the Dockerfile
+          readinessProbe:
+            httpGet:
+              path: /ready  # Ensure your app has this health endpoint
+              port: 3000     # Probe using the correct port
+            initialDelaySeconds: 10  # Wait before the first probe
+            periodSeconds: 10        # Frequency of probes
+          livenessProbe:
+            httpGet:
+              path: /health  # Same endpoint for liveness check
+              port: 3000
+            initialDelaySeconds: 30  # Delay for the first liveness check
+            periodSeconds: 10        # Frequency of checks

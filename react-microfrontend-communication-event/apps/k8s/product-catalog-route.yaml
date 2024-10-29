@@ -1,0 +1,18 @@
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: product-catalog-route
+  namespace: sumanns
+spec:
+  parentRefs:
+    - name: microfrontends-gateway
+  hostnames:
+    - "product-catalog.sumangcodes.info"
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: "/"
+      backendRefs:
+        - name: product-catalog-service  # Kubernetes Service for microfrontend1
+          port: 80

@@ -51,9 +51,9 @@ Copy code
 argocd app sync <APP_NAME>  
 Usage
 Access the Microfrontends
-ProductCatalog: product-catalog.example.com
-ShoppingCart: shopping-cart.example.com
-Container App: container-app.example.com
+ProductCatalog: product-catalog.example.in
+ShoppingCart: shopping-cart.example.in
+Container App: container-app.example.in
 Testing Functionality
 Open the ProductCatalog microfrontend and click "Add to Cart" on any product.
 Verify the product is added to the ShoppingCart microfrontend with the updated total price.
@@ -65,8 +65,8 @@ new ModuleFederationPlugin({
   name: "ContainerApp",  // Name for the main container app
   filename: "remoteEntry.js",  // Remote entry for the container
   remotes: {
-    ProductCatalog: 'ProductCatalog@http://product-catalog.example.com/remoteEntry.js',
-    ShoppingCart: 'ShoppingCart@http://shopping-cart.example.com/remoteEntry.js',
+    ProductCatalog: 'ProductCatalog@http://product-catalog.example.in/remoteEntry.js',
+    ShoppingCart: 'ShoppingCart@http://shopping-cart.example.in/remoteEntry.js',
   },
 });
 This configuration enables the ContainerApp to fetch remote modules dynamically from the deployed ProductCatalog and ShoppingCart services on GKE.

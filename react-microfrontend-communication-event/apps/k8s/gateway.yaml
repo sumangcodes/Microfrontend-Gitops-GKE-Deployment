@@ -1,16 +1,23 @@
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: Gateway
 metadata:
-  name: frontend-gateway
+  name: microfrontends-gateway
   namespace: sumanns
+  annotations:
+    networking.gke.io/static-ip: "35.225.249.245"  # Reserved static IP for the gateway
 spec:
-  gatewayClassName: gke-l7-global-external-managed
+  gatewayClassName: gke-l7-global-external-managed  # GKE-specific managed Gateway class
   listeners:
     - name: http
       protocol: HTTP
       port: 80
-      allowedRoutes:
-        kinds:
-          - kind: HTTPRoute
-        namespaces:
-          from: All
+      hostname: "*.sumangcodes.info"  # Wildcard hostname for all subdomains
+    - name: https
+      protocol: HTTPS
+      port: 443
+      hostname: "*.sumangcodes.info"
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: sumangcodes-info-cert  # Reference to the TLS secret for SSL termination
