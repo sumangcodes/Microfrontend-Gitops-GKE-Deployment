@@ -90,7 +90,8 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout sumanexample-in.key 
 sample port forwarding commands : 
 kubectl port-forward pod/product-catalog-9cbcd86bc-xrgbv 8080:3000 -n sumanns                                                    
 
-
+creation of secret tls :-
+kubectl create secret tls sumanexample-in-cert --cert=sumanexample-in.crt --key=sumanexample-in.key -n sumanns
 
 Acknowledgments
 A special thanks to the teams behind Webpack Module Federation, GKE, and ArgoCD for providing tools that power modern microfrontend architecture and GitOps workflows.
