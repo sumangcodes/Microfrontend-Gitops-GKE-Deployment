@@ -1,0 +1,11 @@
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: sumangcodes-info-cert-managed
+spec:
+  domains:
+    - sumangcodes.info
+    - www.sumangcodes.info
+    - container-app.sumangcodes.info
+    - product-catalog.sumangcodes.info
+    - shopping-cart.sumangcodes.info

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: shopping-cart-service
+  namespace: sumanns
+  labels:
+    app: shopping-cart
+spec:
+  selector:
+    app: shopping-cart  # Matches the deployment's labels
+  ports:
+    - protocol: TCP
+      port: 80             # External port (used by the HTTPRoute)
+      targetPort: 3002      # Container port where your app is running
+  type: ClusterIP           # Default service type, keeps it internal within the cluster

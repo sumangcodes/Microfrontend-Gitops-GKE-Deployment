@@ -4,20 +4,25 @@ metadata:
   name: microfrontends-gateway
   namespace: sumanns
   annotations:
-    networking.gke.io/static-ip: "35.225.249.245"  # Reserved static IP for the gateway
+    networking.gke.io/static-ip: "35.225.249.245"  # Ensure this IP is reserved in GCP
 spec:
-  gatewayClassName: gke-l7-global-external-managed  # GKE-specific managed Gateway class
+  gatewayClassName: gke-l7-global-external-managed  # Ensure this GatewayClass exists
   listeners:
     - name: http
       protocol: HTTP
       port: 80
-      hostname: "*.sumangcodes.info"  # Wildcard hostname for all subdomains
+      allowedRoutes:
+        namespaces:
+          from: All  # Allow routes from all namespaces
+      hostname: "*.sumangcodes.info"  # Wildcard for subdomains
     - name: https
       protocol: HTTPS
       port: 443
-      hostname: "*.sumangcodes.info"
       tls:
         mode: Terminate
         certificateRefs:
           - kind: Secret
-            name: sumangcodes-info-cert  # Reference to the TLS secret for SSL termination
+            name: sumangcodes-info-cert  # Secret with TLS certs
+      allowedRoutes:
+        namespaces:
+          from: All  # Allow HTTPS routes from all namespaces
