@@ -97,6 +97,87 @@ C:\Users\ciphe\Projects\Microfrontend-Gitops-GKE-Deployment\react-microfrontend-
 NAME                   TYPE                DATA   AGE
 sumanexample-in-cert   kubernetes.io/tls   2      18s
 
+Step 1: Obtain SSL Certificates with Certbot
+Install Certbot if it’s not already installed. You can use the following command on Ubuntu:
+
+bash
+Copy code
+sudo apt update
+sudo apt install certbot
+Generate SSL Certificates for your domain. Replace <your-domain> with your actual domain name:
+
+bash
+Copy code
+sudo certbot certonly --standalone -d <your-domain>
+Certbot will save the generated certificates (e.g., privkey.pem and fullchain.pem) in /etc/letsencrypt/live/<your-domain>/.
+
 Acknowledgments
 A special thanks to the teams behind Webpack Module Federation, GKE, and ArgoCD for providing tools that power modern microfrontend architecture and GitOps workflows.
+
+Step 2: Encode Certificates with Base64
+To create a Kubernetes secret, you need to encode the certificates in Base64. Use the following commands:
+
+bash
+Copy code
+cat /etc/letsencrypt/live/<your-domain>/privkey.pem | base64
+cat /etc/letsencrypt/live/<your-domain>/fullchain.pem | base64
+Make a note of these encoded values, as you’ll use them in the next step.
+
+
+Step 3: Create a Kubernetes Secret for TLS
+Create a Kubernetes secret using the encoded certificate and key. Replace <base64-encoded-cert> and <base64-encoded-key> with the Base64-encoded strings from the previous step.
+
+yaml
+Copy code
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tls-secret
+  namespace: default  # Update if using a different namespace
+type: kubernetes.io/tls
+data:
+  tls.crt: <base64-encoded-cert>
+  tls.key: <base64-encoded-key>
+
+
+
+  Apply this secret to your cluster:
+
+bash
+Copy code
+kubectl apply -f tls-secret.yaml
+Step 4: Configure Ingress to Use the TLS Secret
+Edit your Ingress manifest to reference the tls-secret:
+
+yaml
+Copy code
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: example-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"  # Ensure HTTPS redirects
+spec:
+  tls:
+  - hosts:
+    - <your-domain>
+    secretName: tls-secret
+  rules:
+  - host: <your-domain>
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: your-service-name
+            port:
+              number: 80
+Apply your Ingress configuration:
+
+bash
+Copy code
+kubectl apply -f ingress.yaml
+
 
