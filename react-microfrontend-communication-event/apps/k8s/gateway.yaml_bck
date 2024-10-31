@@ -1,0 +1,43 @@
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: Gateway
+metadata:
+  name: microfrontends-gateway
+  namespace: sumanns
+spec:
+  gatewayClassName: gke-l7-global-external-managed  # Ensure this matches your setup
+  listeners:
+    - name: http
+      protocol: HTTP
+      port: 80
+      allowedRoutes:
+        namespaces:
+          from: All  # Allows routes from any namespace
+      hostname: "sumangcodes.info"
+    - name: http-www
+      protocol: HTTP
+      port: 80
+      allowedRoutes:
+        namespaces:
+          from: All
+      hostname: "www.sumangcodes.info"
+    - name: http-container-app
+      protocol: HTTP
+      port: 80
+      allowedRoutes:
+        namespaces:
+          from: All
+      hostname: "container-app.sumangcodes.info"
+    - name: http-product-catalog
+      protocol: HTTP
+      port: 80
+      allowedRoutes:
+        namespaces:
+          from: All
+      hostname: "product-catalog.sumangcodes.info"
+    - name: http-shopping-cart
+      protocol: HTTP
+      port: 80
+      allowedRoutes:
+        namespaces:
+          from: All
+      hostname: "shopping-cart.sumangcodes.info"

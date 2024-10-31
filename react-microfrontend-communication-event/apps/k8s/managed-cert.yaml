@@ -1,7 +1,7 @@
 apiVersion: networking.gke.io/v1
 kind: ManagedCertificate
 metadata:
-  name: sumangcodes-info-cert-managed
+  name: sumangcodes-info-cert-managed-ggle
 spec:
   domains:
     - sumangcodes.info
